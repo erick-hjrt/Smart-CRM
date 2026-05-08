@@ -31,9 +31,9 @@ jobs:
               run: npm run lint
               working-directory: server
 
-            # - name: Run Tests with Coverage
-            #   run: npm test -- --coverage
-            #   working-directory: server
+            - name: Run Tests with Coverage
+              run: npm test -- --coverage --coverageReporters=lcov
+              working-directory: server
 
             - name: SonarCloud Scan
               uses: SonarSource/sonarcloud-github-action@v3
@@ -45,4 +45,7 @@ jobs:
                       -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
                       -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
                       -Dsonar.sources=server/src
-                  #   -Dsonar.javascript.lcov.reportPaths=server/coverage/lcov.info
+                      -Dsonar.javascript.lcov.reportPaths=server/coverage/lcov.info
+                      -Dsonar.exclusions=**/*.test.js,**/*.spec.js,server/coverage/**
+                      -Dsonar.qualitygate.wait=true
+
