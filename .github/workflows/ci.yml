@@ -45,4 +45,4 @@ jobs:
                       -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
                       -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
                       -Dsonar.sources=server/src
-                      -Dsonar.javascript.lcov.reportPaths=server/coverage/lcov.info
+                  #   -Dsonar.javascript.lcov.reportPaths=server/coverage/lcov.info
