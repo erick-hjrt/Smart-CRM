@@ -10,94 +10,26 @@ app.get("/test", (req, res) => {
 });
 
 app.post("/api/lead_score", (req, res) => {
-  let score = 0;
-  let tag = "";
+  const calculateScore = (data) => {
+    let score = 0;
+    if (data.emailOpened) score += 10;
+    if (data.emailClicked) score += 20;
+    if (data.jobTitle === "CEO" || data.jobTitle === "Directeur") score += 50;
+    if (data.lastActivityDays > 30) score -= 30;
+    return Math.max(0, score);
+  };
 
-  const data = req.body;
+  const getTag = (score) => {
+    return score > 80 ? "HOT LEAD" : "NORMAL";
+  };
 
-  if (data.emailOpened) {
-    score = score + 10;
+  const score = calculateScore(req.body);
+  const tag = getTag(score);
 
-    if (data.emailClicked) {
-      score = score + 20;
-
-      if (data.jobTitle) {
-        if (data.jobTitle === "CEO" || data.jobTitle === "Directeur") {
-          score = score + 50;
-
-          if (data.lastActivityDays > 30) {
-            score = score - 30;
-
-            if (score < 0) {
-              score = 0;
-            } else {
-              if (score > 80) {
-                tag = "HOT LEAD";
-              } else {
-                tag = "NORMAL";
-              }
-            }
-          } else {
-            if (score > 80) {
-              tag = "HOT LEAD";
-            } else {
-              tag = "NORMAL";
-            }
-          }
-        } else {
-          if (data.lastActivityDays > 30) {
-            score = score - 30;
-
-            if (score < 0) {
-              score = 0;
-            } else {
-              if (score > 80) {
-                tag = "HOT LEAD";
-              } else {
-                tag = "NORMAL";
-              }
-            }
-          } else {
-            if (score > 80) {
-              tag = "HOT LEAD";
-            } else {
-              tag = "NORMAL";
-            }
-          }
-        }
-      }
-    } else {
-      if (data.lastActivityDays > 30) {
-        score = score - 30;
-
-        if (score < 0) {
-          score = 0;
-        } else {
-          if (score > 80) {
-            tag = "HOT LEAD";
-          } else {
-            tag = "NORMAL";
-          }
-        }
-      }
-    }
-  } else {
-    if (data.lastActivityDays > 30) {
-      score = score - 30;
-
-      if (score < 0) {
-        score = 0;
-      } else {
-        if (score > 80) {
-          tag = "HOT LEAD";
-        } else {
-          tag = "NORMAL";
-        }
-      }
-    }
-  }
   console.log(
-    `Score calculé pour ${data.email || "le prospect"}: ${score}, Tag: ${tag}`
+    `Score calculé pour ${
+      req.body.email || "le prospect"
+    }: ${score}, Tag: ${tag}`
   );
 
   res.json({
