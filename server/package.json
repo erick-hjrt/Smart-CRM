@@ -4,10 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
+    "test": "jest",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "lint": "eslint ."
+  },
+  "jest": {
+    "testMatch": ["**/tests/**/*.test.js"],
+    "collectCoverage": true,
+    "coverageReporters": ["lcov", "text"],
+    "coverageDirectory": "coverage"
   },
   "keywords": [],
   "author": "",
@@ -17,10 +23,12 @@
     "@eslint/js": "^10.0.1",
     "eslint": "^10.3.0",
     "globals": "^17.6.0",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "supertest": "^7.2.2"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "jest": "^30.4.1"
   }
 }
