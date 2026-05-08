@@ -9,6 +9,12 @@
     "dev": "nodemon src/index.js",
     "lint": "eslint ."
   },
+  "jest": {
+    "testMatch": ["**/tests/**/*.test.js"],
+    "collectCoverage": true,
+    "coverageReporters": ["lcov", "text"],
+    "coverageDirectory": "coverage"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
