@@ -106,6 +106,4 @@ app.post("/api/lead_score", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Démarrage de serveur sur le port : ${PORT}`);
-});
+module.exports = app;
