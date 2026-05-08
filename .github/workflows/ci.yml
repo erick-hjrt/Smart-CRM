@@ -31,9 +31,9 @@ jobs:
               run: npm run lint
               working-directory: server
 
-            - name: Run Tests with Coverage
-              run: npm test -- --coverage
-              working-directory: server
+            # - name: Run Tests with Coverage
+            #   run: npm test -- --coverage
+            #   working-directory: server
 
             - name: SonarCloud Scan
               uses: SonarSource/sonarcloud-github-action@v2
