@@ -1,4 +1,3 @@
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: CI Quality Pipeline
 
 on:
@@ -22,15 +21,19 @@ jobs:
               with:
                   node-version: 18
                   cache: "npm"
+                  cache-dependency-path: server/package-lock.json
 
             - name: Install dependencies
               run: npm ci
+              working-directory: server
 
             - name: Run Linter (ESLint)
               run: npm run lint
+              working-directory: server
 
             - name: Run Tests with Coverage
               run: npm test -- --coverage
+              working-directory: server
 
             - name: SonarCloud Scan
               uses: SonarSource/sonarcloud-github-action@v2
@@ -38,8 +41,8 @@ jobs:
                   args: >
                       -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
                       -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
-                      -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-                      -Dsonar.sources=src -Dsonar.tests=tests
+                      -Dsonar.javascript.lcov.reportPaths=server/coverage/lcov.info
+                      -Dsonar.sources=server/src -Dsonar.tests=server/tests
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
