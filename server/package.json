@@ -10,9 +10,14 @@
     "lint": "eslint ."
   },
   "jest": {
-    "testMatch": ["**/tests/**/*.test.js"],
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
     "collectCoverage": true,
-    "coverageReporters": ["lcov", "text"],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
     "coverageDirectory": "coverage"
   },
   "keywords": [],
@@ -29,6 +34,7 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "helmet": "^8.1.0",
     "jest": "^30.4.1"
   }
 }
