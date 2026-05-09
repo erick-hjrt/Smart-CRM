@@ -13,9 +13,8 @@ app.get("/test", (_req, res) => res.send("SmartCRM Backend is running"));
 app.post("/api/lead_score", (req, res) => {
   const score = calculateScore(req.body);
   const tag = getTag(score);
-  const label = req.body.email || "le prospect";
-
-  console.log(`Score calculé pour ${label}: ${score}, Tag: ${tag}`);
+  
+  console.log(`Score calculé : ${score}, Tag: ${tag}`);
 
   res.json({ score, tag });
 });
