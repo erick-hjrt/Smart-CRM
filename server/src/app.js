@@ -1,9 +1,11 @@
 require("dotenv").config();
 const express = require("express");
+const helmet = require("helmet");
+
 const { calculateScore, getTag } = require("./leadScore");
 
 const app = express();
-
+app.use(helmet()); 
 app.use(express.json());
 
 app.get("/test", (_req, res) => res.send("SmartCRM Backend is running"));
